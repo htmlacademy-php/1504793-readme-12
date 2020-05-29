@@ -203,14 +203,14 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
         </div>
         <div class="popular__posts">
     
-        <?php  
-                   $post_array[0]=['title'=>'Цитата', 'type'=>'post-quote', 'content'=>'Мы в жизни любим только раз, а после ищем лишь похожих', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];   
-                   $post_array[1]=['title'=>'Игра престолов', 'type'=>'post-text', 'content'=>'Не могу дождаться начала финального сезона своего любимого сериала!', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
-                   $post_array[2]=['title'=>'Наконец, обработал фотки!', 'type'=>'post-photo', 'content'=>'rock-medium.jpg', 'name'=>'Виктор', 'portret'=>'userpic-mark.jpg'];
-                   $post_array[3]=['title'=>'Моя мечта', 'type'=>'post-photo', 'content'=>'coast-medium.jpg', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];
-                   $post_array[4]=['title'=>'Лучшие курсы', 'type'=>'post-link', 'content'=>'www.htmlacademy.ru', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
-                   foreach($post_array as $post=>$content):
-         ?>
+<?php  
+ $post_array[0]=['title'=>'Цитата', 'type'=>'post-quote', 'content'=>'Мы в жизни любим только раз, а после ищем лишь похожих', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];   
+ $post_array[1]=['title'=>'Игра престолов', 'type'=>'post-text', 'content'=>'Не могу дождаться начала финального сезона своего любимого сериала!', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
+ $post_array[2]=['title'=>'Наконец, обработал фотки!', 'type'=>'post-photo', 'content'=>'rock-medium.jpg', 'name'=>'Виктор', 'portret'=>'userpic-mark.jpg'];
+ $post_array[3]=['title'=>'Моя мечта', 'type'=>'post-photo', 'content'=>'coast-medium.jpg', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];
+ $post_array[4]=['title'=>'Лучшие курсы', 'type'=>'post-link', 'content'=>'www.htmlacademy.ru', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
+ foreach($post_array as $post=>$content):
+ ?>
                <article class="popular__post post <?=$content['type'];?>">
                 <header class="post__header">
                     <h2><?=$content['title'];?><!--здесь заголовок--></h2>
