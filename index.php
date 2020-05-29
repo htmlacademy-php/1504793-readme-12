@@ -1,6 +1,5 @@
 <?php
 $is_auth = rand(0, 1);
-
 $user_name = 'Александр Ник'; // укажите здесь ваше имя
 ?>
 <!DOCTYPE html>
@@ -59,13 +58,8 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                         </a>
                     </li>
                 </ul>
-
                 
-                                                                  
-                
-
-                <?php if($is_auth==1):?> <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
-
+              <?php if($is_auth==1):?> <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
                 <ul class="header__user-nav">
                     <li class="header__profile">
                         <a class="header__profile-link" href="#">
@@ -74,7 +68,6 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                             </div>
                             <div class="header__profile-name">
                                 <span>
-
                                     <?=$user_name; ?>  <!--здесь должно быть имя пользователя-->
                                 </span>
                                     <?php endif ?>
@@ -209,21 +202,15 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
             </div>
         </div>
         <div class="popular__posts">
-        
-       
+    
         <?php  
                    $post_array[0]=['title'=>'Цитата', 'type'=>'post-quote', 'content'=>'Мы в жизни любим только раз, а после ищем лишь похожих', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];   
                    $post_array[1]=['title'=>'Игра престолов', 'type'=>'post-text', 'content'=>'Не могу дождаться начала финального сезона своего любимого сериала!', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
                    $post_array[2]=['title'=>'Наконец, обработал фотки!', 'type'=>'post-photo', 'content'=>'rock-medium.jpg', 'name'=>'Виктор', 'portret'=>'userpic-mark.jpg'];
                    $post_array[3]=['title'=>'Моя мечта', 'type'=>'post-photo', 'content'=>'coast-medium.jpg', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];
                    $post_array[4]=['title'=>'Лучшие курсы', 'type'=>'post-link', 'content'=>'www.htmlacademy.ru', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
-                   
-                   
-                   
-                  foreach($post_array as $post=>$content):
-             
-           ?>
-                                    
+                   foreach($post_array as $post=>$content):
+         ?>
                <article class="popular__post post <?=$content['type'];?>">
                 <header class="post__header">
                     <h2><?=$content['title'];?><!--здесь заголовок--></h2>
@@ -231,17 +218,27 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                 <div class="post__main">
                     <?php
                     if($content['type']=='post-quote'){
-                    $one='<blockquote><p>';
-                    $two='</p><cite>Неизвестный автор</cite></blockquote>';
+                       $one='<blockquote><p>';
+                       $two='</p><cite>Неизвестный автор</cite></blockquote>';
                     }elseif($content['type']=='post-photo'){
-                    $one='<div class="post-photo__image-wrapper"><img src="img/';
-                    $two='" alt="Фото от пользователя" width="360" height="240"></div>';
+                       $one='<div class="post-photo__image-wrapper"><img src="img/';
+                       $two='" alt="Фото от пользователя" width="360" height="240"></div>';
                     }elseif($content['type']=='post-text'){
-                    $one='<p>';
-                    $two='</p>';
+                       $one='<p>';
+                       $two='</p>';
                     }else{
-                    $one='<div class="post-link__wrapper"><a class="post-link__external" href="https://htmlacademy.ru/" title="Перейти по ссылке"><div class="post-link__info-wrapper"><div class="post-link__icon-wrapper"><img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка"></div><div class="post-link__info"><h3>HTML Academy<!--здесь заголовок--></h3></div></div><span>';
-                    $two='</span></a></div>';
+                       $one='<div class="post-link__wrapper">
+                         <a class="post-link__external" href="https://htmlacademy.ru/" title="Перейти по ссылке">
+                            <div class="post-link__info-wrapper">
+                               <div class="post-link__icon-wrapper">
+                                 <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                               </div>
+                               <div class="post-link__info"> 
+                                   <h3>HTML Academy<!--здесь заголовок--></h3>
+                               </div>
+                             </div>
+                                  <span>';
+                       $two='</span></a></div>';
                     }
                     ?>
                     <?php print($one.$content['content'].$two);?><!--здесь содержимое карточки-->
@@ -284,8 +281,7 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                 </footer>
             </article>
                 <?php endforeach;?>
-                       
-            
+       
         </div>
     </div>
 </section>
