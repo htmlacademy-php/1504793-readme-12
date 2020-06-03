@@ -58,8 +58,7 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                         </a>
                     </li>
                 </ul>
-                
-              <?php if($is_auth==1):?> <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
+                <?php if($is_auth==1):?> <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
                 <ul class="header__user-nav">
                     <li class="header__profile">
                         <a class="header__profile-link" href="#">
@@ -68,7 +67,7 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                             </div>
                             <div class="header__profile-name">
                                 <span>
-                                    <?=$user_name; ?>  <!--здесь должно быть имя пользователя-->
+                                   <?=$user_name; ?>  <!--здесь должно быть имя пользователя-->
                                 </span>
                                     <?php endif ?>
                                 <svg class="header__link-arrow" width="10" height="6">
@@ -202,45 +201,79 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
             </div>
         </div>
         <div class="popular__posts">
-    
-<?php  
- $post_array[0]=['title'=>'Цитата', 'type'=>'post-quote', 'content'=>'Мы в жизни любим только раз, а после ищем лишь похожих', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];   
- $post_array[1]=['title'=>'Игра престолов', 'type'=>'post-text', 'content'=>'Не могу дождаться начала финального сезона своего любимого сериала!', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
- $post_array[2]=['title'=>'Наконец, обработал фотки!', 'type'=>'post-photo', 'content'=>'rock-medium.jpg', 'name'=>'Виктор', 'portret'=>'userpic-mark.jpg'];
- $post_array[3]=['title'=>'Моя мечта', 'type'=>'post-photo', 'content'=>'coast-medium.jpg', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];
- $post_array[4]=['title'=>'Лучшие курсы', 'type'=>'post-link', 'content'=>'www.htmlacademy.ru', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
- foreach($post_array as $post=>$content):
- ?>
-               <article class="popular__post post <?=$content['type'];?>">
+      <?php  
+                   $post_array[0]=['title'=>'Цитата', 'type'=>'post-quote', 'content'=>'Мы в жизни любим только раз, а после ищем лишь похожих', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];   
+                   $post_array[1]=['title'=>'Гора Эльбрус', 'type'=>'post-text', 'content'=>'Не могу дождаться начала финального сезона своего любимого сериала!', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
+                   $post_array[2]=['title'=>'Наконец, обработал фотки!', 'type'=>'post-photo', 'content'=>'rock-medium.jpg', 'name'=>'Виктор', 'portret'=>'userpic-mark.jpg'];
+                   $post_array[3]=['title'=>'Моя мечта', 'type'=>'post-photo', 'content'=>'coast-medium.jpg', 'name'=>'Лариса', 'portret'=>'userpic-larisa-small.jpg'];
+                   $post_array[4]=['title'=>'Лучшие курсы', 'type'=>'post-link', 'content'=>'www.htmlacademy.ru', 'name'=>'Владик', 'portret'=>'userpic.jpg'];
+                   // текст для текстового поста:
+                   $post_array[1]['content']='Эльбрус - стратовулкан на Кавказе (5642 метра над уровнем моря) - самая высокая горная вершина России,
+                    самый высокий стратовулкан Евразии, а также высочайшая вершина Европы при условии проведении границы между Европой и Азией
+                     по Главному Кавказскому хребту, входящая в список высочайших вершин частей света «Семь вершин». Талая вода ледников,
+                      стекающих с его склонов, питает одни из наиболее крупных рек Северного Кавказа: Кубань, Малку и Баксан. За счёт хорошо развитой
+                       транспортной  и сопутствующей инфраструктуры Эльбрус и прилегающие к нему районы очень популярны в рекреационном, спортивном,
+                        туристическом и альпинистском плане.'; 
+                                                           
+                     // функция text_post для обрезания текста текстового поста 
+                    function text_post($text, $sum_symbols) {
+                        $words=explode(" ", $text);                  // массив слов из текста 
+                        $sum=0;                                             // начальное значение суммы символов
+                        $len=count($words);                           // количество слов в тексте
+                        foreach($words as $index=>$val) {      // перебор массива
+                          $sum=$sum+mb_strlen($val, 'utf-8');  // подсчет символов в слове
+                              if($sum>$sum_symbols) {            // При превышении заданного количества -
+                                  $index--;                                 //  выход из цикла с предыдущим индексом 
+                                  break;
+                              } elseif($sum==$sum_symbols) {   
+                                  break;                                     // при равенстве - выход из цикла
+                              }                                 
+                        }
+                        if($index==$len-1) {                          // Eсли массив перебран до последнего индекса,
+                           $textcut=implode(" ", $words);       // то собираем из него текст. 
+                        } else {         
+                            $words=array_slice($words, 0, $index);   // Иначе формируем урезанный массив 
+                            $words[]='...';                                    // Добавление многоточия 
+                            $words[]='<a class="post-text__more-link" href="#">Читать далее</a>'; // Добаление ссылки -читать далее-                              
+                            $textcut=implode(" ", $words);           // Собираем текст из урезанного массива                         
+                        } 
+                        return $textcut;                                  // ф-я возвращает урезанный текст с многоточием и ссылкой
+                    }                                        
+                                 
+                   foreach($post_array as $post=>$content):     // Перебор массива постов для заполнения содержимого постов
+          ?>
+                <article class="popular__post post <?=$content['type'];?>">
                 <header class="post__header">
                     <h2><?=$content['title'];?><!--здесь заголовок--></h2>
                 </header>
                 <div class="post__main">
                     <?php
-                    if($content['type']=='post-quote'){
-                       $one='<blockquote><p>';
-                       $two='</p><cite>Неизвестный автор</cite></blockquote>';
-                    }elseif($content['type']=='post-photo'){
-                       $one='<div class="post-photo__image-wrapper"><img src="img/';
-                       $two='" alt="Фото от пользователя" width="360" height="240"></div>';
-                    }elseif($content['type']=='post-text'){
-                       $one='<p>';
-                       $two='</p>';
-                    }else{
-                       $one='<div class="post-link__wrapper">
-                         <a class="post-link__external" href="https://htmlacademy.ru/" title="Перейти по ссылке">
-                            <div class="post-link__info-wrapper">
-                               <div class="post-link__icon-wrapper">
-                                 <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                               </div>
-                               <div class="post-link__info"> 
-                                   <h3>HTML Academy<!--здесь заголовок--></h3>
-                               </div>
-                             </div>
-                                  <span>';
-                       $two='</span></a></div>';
+                    if($content['type']=='post-quote') {
+                         $one='<blockquote><p>';
+                         $two='</p><cite>Неизвестный автор</cite></blockquote>';
+                    } elseif($content['type']=='post-photo') {
+                         $one='<div class="post-photo__image-wrapper"><img src="img/';
+                         $two='" alt="Фото от пользователя" width="360" height="240"></div>';
+                    } elseif($content['type']=='post-text') {
+                         $one='<p>';
+                         $content['content']=text_post($content['content'], 300);  // формирование текста текстового поста функцией урезания текста до 300 символов
+                         $two='</p>';
+                    } else {
+                        $one='<div class="post-link__wrapper">
+                            <a class="post-link__external" href="https://htmlacademy.ru/" title="Перейти по ссылке">
+                                 <div class="post-link__info-wrapper">
+                                        <div class="post-link__icon-wrapper">
+                                               <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                       </div>
+                                       <div class="post-link__info">
+                                             <h3>HTML Academy<!--здесь заголовок--></h3>
+                                      </div>
+                                 </div>
+                             <span>';
+                    $two='</span></a></div>';
                     }
-                    ?>
+                    
+                  ?>
                     <?php print($one.$content['content'].$two);?><!--здесь содержимое карточки-->
                 </div>
                 <footer class="post__footer">
@@ -252,7 +285,6 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                             </div>
                             <div class="post__info">
                                 <b class="post__author-name"><?=$content['name'];?><!--здесь имя пользоателя--></b>
-                                
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
@@ -281,11 +313,9 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
                 </footer>
             </article>
                 <?php endforeach;?>
-       
-        </div>
+  </div>
     </div>
 </section>
-
 <footer class="footer">
     <div class="footer__wrapper">
         <div class="footer__container container">
@@ -339,8 +369,7 @@ $user_name = 'Александр Ник'; // укажите здесь ваше 
             </div>
         </div>
     </div>
-    
-</footer>
+  </footer>
 <script src="libs/dropzone.js"></script>
 <script src="js/dropzone-settings.js"></script>
 <script src="js/main.js"></script>
